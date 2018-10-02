@@ -1,0 +1,4 @@
+1) a cow - krowa
+2) a cat - kot
+3) a snake - waz
+4) a dog - pies
