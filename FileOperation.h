@@ -33,23 +33,25 @@ using namespace std;
 
 class FileOperation : public Interface
 {
-public:
+private:
 	//VARIABLES
 	string full_sentence ;
 	string sign  =  "-";
-
 	string display;
 	string answer;
 	int nr_sign; // number_of_signs_to_copy
 	int check_resul; //checking your answer
 	int mode_practice;
-
+	int random;
+	int count;
+public:
 	//FUNTIONS
 	FileOperation(const Interface& start);
 	void Practice(string first,string second,string third);
+private:
 	void ToPolish(string third);
 	void FromPolish(string third);
-	void Check(void);
+	int Check(void);
 };
 
 

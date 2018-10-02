@@ -10,6 +10,7 @@
 #include "FileOperation.h"
 #include <string>
 #include <cstring>
+
 using namespace std;
 
 
@@ -25,7 +26,8 @@ int main(void)
 		{
 		case 1:
 		{
-			FileOperation File(start);
+			FileOperation *File = new FileOperation(start);
+			delete File;
 			break;
 		}
 
@@ -40,20 +42,9 @@ int main(void)
 
 
 
-/*
-	string a =  "A cat-koty";
-	string b = "-";
-	int check = a.find(b);
-	if(check  >= 0)
-	{
-		cout << "Correct answer!" <<endl;
-		cout << check <<endl;
-	}
-	if(check == -1 ) // string::npos =  -1
-	{
-		cout << "You are wrong." <<endl;
-	}
-*/
+
+
+
 
 
 

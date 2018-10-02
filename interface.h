@@ -13,11 +13,14 @@
 
 class Interface
 {
+
 public:
+	//VARIABLES
 	int decision;
 	int language;
 	char quit;
 	int mode;
+	//FUNTIONS
 	Interface();
 	void menu(void);
 };

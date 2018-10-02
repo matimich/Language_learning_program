@@ -11,6 +11,9 @@
 #include <fstream>
 #include <cstring>
 #include <string>
+#include <cstdlib>
+#include <time.h>
+
 
 using namespace std;
 
@@ -47,66 +50,62 @@ void FileOperation :: Practice(string first,string second,string third)
 
 void FileOperation :: ToPolish(string third) // zrobic funkcje z correct  wrzucic jao
 {
-	char continue_learn = 'A';
-	fstream StudyFile;		//file initialization
+	ifstream StudyFile;		//file initialization
 	StudyFile.open(third);
 
 	if(StudyFile.is_open())
 	{
-		if(mode_practice==1)
+		if(mode_practice==1)	//NORMAL MODE
 		{
 			while(getline(StudyFile,full_sentence))	//EXTRACTING WORLD FROM FILE
 			{
 
-				nr_sign = full_sentence.find(sign);	//SEARCHING FOR NON PL PART OF LINE
-				string display(full_sentence, 0, nr_sign); //COPYING EXACT NUMBER OF SIGNS
-				BACK:
-				cout << display << endl;
-				//CHECKING
-				cout << "Meaning in Polish:" << endl;
-				cin >> answer;
-				int check_resul = full_sentence.find(answer);
-				if(check_resul  >= 0)
+				if(Check()==1)
 				{
-					cout << "Correct answer!" <<endl;
-				}
-				if(check_resul == -1 ) // string::npos =  -1
-				{
-					cout << "You are wrong." <<endl;
-					cout <<"Press 'r' or 'R' to repeat:";
-					cin >> continue_learn;
-					if(continue_learn == 'r' || continue_learn == 'R')
-						goto BACK;
-				}
-				cout <<"Press 'c' or 'C' to continue:";
-				cin >> continue_learn;
-				if(continue_learn == 'C' || continue_learn == 'c')
 					continue;
+				}
 				else
+				{
 					break;
+				}
 			}
 		}
-		else if(mode_practice==2)
+		else if(mode_practice==2)	//RANDOM MODE
 		{
-			do
+			count = 0;
+
+			while(getline(StudyFile,full_sentence))	//EXTRACTING WORLD FROM FILE
 			{
-				for(int i=0; i<2;i++)
+				count++;
+			}
+
+
+
+			while(1)
+			{
+				if(ios::eof) //CHECKING IF EOF FLAG IS SET
+				{
+					StudyFile.clear();				//CLEARING EOF FLAG IS A MUST!
+					StudyFile.seekg(0,ios::beg);	//to the beginning of the file
+				}
+				srand (time(NULL));
+				random = rand() % count + 1;
+
+
+				for(int i=0; i<random;i++)
 				{
 					getline(StudyFile,full_sentence);
 				}
-				nr_sign = full_sentence.find(sign);	//SEARCHING FOR NON PL PART OF LINE
-				string display(full_sentence,0,nr_sign);
-				cout << display << endl;
-				cout << "Meaning in Polish:" << endl;
 
-
-
-
-				StudyFile.seekg(0, ios::beg);
-				cout <<"Press 'q' or 'Q' to exit:" <<endl;
-				cin >> continue_learn;
+				if(Check()==1)
+				{
+					continue;
+				}
+				else
+				{
+					break;
+				}
 			}
-				while(continue_learn != 'q' && continue_learn != 'Q');
 		}
 	}
 	else
@@ -121,9 +120,39 @@ void FileOperation :: FromPolish(string third)
 
 }
 
-void FileOperation :: Check(void)
+int FileOperation :: Check(void)
 {
-
+	string continue_learn = "A";
+	nr_sign = full_sentence.find(sign);	//SEARCHING FOR NON PL PART OF LINE
+	string display(full_sentence, 0, nr_sign); //COPYING EXACT NUMBER OF SIGNS
+	BACK:
+	cout << display << endl;
+	//CHECKING
+	cout << "Meaning in Polish:" << endl;
+	cin >> answer;
+	int check_resul = full_sentence.find(answer);
+	if(check_resul  >= 0)
+	{
+		cout << "Correct answer!" <<endl;
+	}
+	if(check_resul == -1 ) // string::npos =  -1
+	{
+		cout << "You are wrong." <<endl;
+		cout <<"Press 'r' or 'R' to repeat:";
+		cin >> continue_learn;
+		if(continue_learn == "r" || continue_learn == "R")
+		goto BACK;
+	}
+	cout <<"Press 'c' or 'C' to continue:";
+	cin >> continue_learn;
+	if(continue_learn == "C" || continue_learn == "c")
+	{
+		return 1;
+	}
+	else
+	{
+		return 2;
+	}
 }
 
 FileOperation :: FileOperation(const Interface& start) : nr_sign{0},check_resul{0},mode_practice{start.mode}
