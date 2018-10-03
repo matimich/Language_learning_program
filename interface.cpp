@@ -13,17 +13,12 @@
 
 using namespace std;
 
-Interface :: Interface() : decision{0},language{10},quit{'A'},mode{0}
-{
-
-}
-
+Interface :: Interface() : decision{0},language{10},mode{0}
+{}
 
 
 void Interface :: menu(void)
 {
-
-
 	do
 	{
 		cout <<"Choose '1' to learn Eng." << endl;
@@ -34,7 +29,7 @@ void Interface :: menu(void)
 		{
 			cout << "Wrong number." << "(" ;
 			cout << language << ")"<<endl;
-			cin.clear();	//clears flag
+			cin.clear();	//clears flag ,prevents from crashing
 			cin.ignore();	// clears sign from buffer
 		}
 	}
@@ -62,23 +57,22 @@ void Interface :: menu(void)
 
 	if(decision==1) // configurate practice mode
 	do
+	{
+		cout <<"Choose '1' to play 'normal mode'  - program displays all data from the file." << endl;
+		cout <<"one after another" << endl;
+		cout <<"Choose '2' to play 'random mode' - program displays random data from the file" << endl;
+
+		cin >> mode;
+
+		if(mode != 1 && mode != 2)
 		{
-			cout <<"Choose '1' to play 'normal mode'  - program displays all data from the file." << endl;
-			cout <<"one after another" << endl;
-			cout <<"Choose '2' to play 'random mode' - program displays random data from the file" << endl;
-
-
-			cin >> mode;
-			if(mode != 1 && mode != 2)
-			{
-				cout << "Wrong number." << "(" ;
-				cout << mode << ")"<<endl;
-				cin.clear();	//clears flag
-				cin.ignore();	// clears sign from buffer
-			}
+			cout << "Wrong number." << "(" ;
+			cout << mode << ")"<<endl;
+			cin.clear();	//clears flag
+			cin.ignore();	// clears sign from buffer
 		}
-		while(mode != 1 && mode != 2);
-
+	}
+	while(mode != 1 && mode != 2);
 }
 
 #endif /* INTERFACE_CPP_ */

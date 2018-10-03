@@ -9,7 +9,6 @@
 #include <iostream>
 #include "FileOperation.h"
 #include <fstream>
-#include <cstring>
 #include <string>
 #include <cstdlib>
 #include <time.h>
@@ -39,16 +38,16 @@ void FileOperation :: Practice(string first,string second,string third)
 
 	if(decision==1)
 	{
-		ToPolish(third);
+		Translate(third);
 	}
-	else
+	else if(decision==2)
 	{
-		FromPolish(third);
+		Translate(third);
 	}
 }
 
 
-void FileOperation :: ToPolish(string third) // zrobic funkcje z correct  wrzucic jao
+void FileOperation :: Translate(string third) // zrobic funkcje z correct  wrzucic jao
 {
 	ifstream StudyFile;		//file initialization
 	StudyFile.open(third);
@@ -59,8 +58,7 @@ void FileOperation :: ToPolish(string third) // zrobic funkcje z correct  wrzuci
 		{
 			while(getline(StudyFile,full_sentence))	//EXTRACTING WORLD FROM FILE
 			{
-
-				if(Check()==1)
+				if(Check(decision)==1)
 				{
 					continue;
 				}
@@ -74,12 +72,10 @@ void FileOperation :: ToPolish(string third) // zrobic funkcje z correct  wrzuci
 		{
 			count = 0;
 
-			while(getline(StudyFile,full_sentence))	//EXTRACTING WORLD FROM FILE
+			while(getline(StudyFile,full_sentence))	//EXTRACTING LINE FROM FILE
 			{
 				count++;
 			}
-
-
 
 			while(1)
 			{
@@ -97,7 +93,7 @@ void FileOperation :: ToPolish(string third) // zrobic funkcje z correct  wrzuci
 					getline(StudyFile,full_sentence);
 				}
 
-				if(Check()==1)
+				if(Check(decision)==1)
 				{
 					continue;
 				}
@@ -120,16 +116,32 @@ void FileOperation :: FromPolish(string third)
 
 }
 
-int FileOperation :: Check(void)
+int FileOperation :: Check(int mode)
 {
 	string continue_learn = "A";
+	string language;
+
 	nr_sign = full_sentence.find(sign);	//SEARCHING FOR NON PL PART OF LINE
-	string display(full_sentence, 0, nr_sign); //COPYING EXACT NUMBER OF SIGNS
+
 	BACK:
-	cout << display << endl;
+	if(mode==1)	//FOR 'TO POLISH' MODE
+	{
+		string display(full_sentence, 0, nr_sign);//COPYING EXACT NUMBER OF SIGNS
+		cout<< display << endl;
+		language = "Polish";
+	}
+	else if(mode ==2)//FOR 'FROM POLISH' MODE
+	{
+		string display(full_sentence, nr_sign+2, '\n');//COPYING EXACT NUMBER OF SIGNS
+		cout<< display << endl;
+		language = sec_lang;
+	}
 	//CHECKING
-	cout << "Meaning in Polish:" << endl;
-	cin >> answer;
+	cout << "Meaning in " << language <<":"<<endl;
+	//cin >> answer;
+	cin.ignore();					//CLEARS BUFFER ('\n' IN BUFFER)
+	std::getline(std::cin,answer);	//ALLOWS INPUTTING STRINGS WITH 'SPACE' SEPARATION
+
 	int check_resul = full_sentence.find(answer);
 	if(check_resul  >= 0)
 	{
@@ -138,12 +150,12 @@ int FileOperation :: Check(void)
 	if(check_resul == -1 ) // string::npos =  -1
 	{
 		cout << "You are wrong." <<endl;
-		cout <<"Press 'r' or 'R' to repeat:";
+		cout <<"Press 'r' or 'R' to repeat:" <<endl;
 		cin >> continue_learn;
 		if(continue_learn == "r" || continue_learn == "R")
 		goto BACK;
 	}
-	cout <<"Press 'c' or 'C' to continue:";
+	cout <<"Press 'c' or 'C' to continue:" << endl;
 	cin >> continue_learn;
 	if(continue_learn == "C" || continue_learn == "c")
 	{
@@ -159,13 +171,13 @@ FileOperation :: FileOperation(const Interface& start) : nr_sign{0},check_resul{
 {
 	if(start.language==1)	//SETTING LANGUAGE
 	{
+		sec_lang = "English";
 		Practice(FIRST_ENG,SEC_ENG,ENGLISH_FILE_NAME);
 	}
 	else if (start.language==2)
 	{
+		sec_lang = "French";
 		Practice(FIRST_FR,SEC_FR,FRENCH_FILE_NAME);
 	}
-
-
 }
 

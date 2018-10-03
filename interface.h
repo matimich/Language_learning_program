@@ -15,16 +15,14 @@ class Interface
 {
 
 public:
-	//VARIABLES
-	int decision;
-	int language;
-	char quit;
-	int mode;
-	//FUNTIONS
+	//var
+	int decision;	//for setting one of 4 menu operation
+	int language;	// for choosing English or French learning mode
+	int mode;		//setting one of two practice mode
+	//fun
 	Interface();
-	void menu(void);
+	void menu(void);	//menu interface
 };
-
 
 
 

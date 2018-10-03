@@ -1,4 +1,6 @@
-1) a cow - krowa
-2) a cat - kot
-3) a snake - waz
-4) a dog - pies
+a cow - krowa
+a cat - kot
+a snake - waz
+a dog - pies
+a bird - ptak
+a mouse - mysz
