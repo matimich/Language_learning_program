@@ -9,10 +9,11 @@
 #include "FileOperation.h"
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 using namespace std;
 
 
-FileData::FileData(const Interface& start)
+FileData::FileData(const Interface& start) : language_flag{start.language}
 {
 	if(start.language==1)	//ENG
 	{
@@ -23,6 +24,7 @@ FileData::FileData(const Interface& start)
 		else if(start.decision == 3)
 		{
 			Edit(ENGLISH_FILE_NAME);
+
 		}
 	}
 	else if (start.language==2)	//FR
@@ -88,6 +90,7 @@ void FileData :: Edit(string FileName)
 		}
 		case 2:
 		{
+			Delete(FileName);
 			break;
 		}
 		case 3:
@@ -110,4 +113,69 @@ void FileData :: Add(string FileName)
 	Add << "\n";
 	Add << new_word;
 	Add.close();
+}
+
+void FileData :: Delete(string FileName)
+{
+	string search;
+	string copy;
+	int check;
+
+	cout << "Input the word you want to remove:" << endl;
+	cin.ignore();
+	std::getline(cin,search);
+	//FILES CONF
+	fstream Delete;
+	ofstream TemporaryFile;
+	Delete.open(FileName);
+	TemporaryFile.open("Temp.txt");
+	/*
+	if(TemporaryFile.is_open())
+	{
+		cout << "File has been created." << endl;	//TEST
+	}
+	*/
+	int flag=0,flag_2=0;
+	while(getline(Delete,copy))
+	{
+		check=copy.find(search);
+		if(check!=-1)
+		{
+			flag = 1;
+			copy.replace(0,copy.length(),"");
+			if(flag==1)
+			{
+				TemporaryFile << copy;
+				flag_2 =1;
+			}
+			cout << "Done" << endl;
+		}
+		if(flag == 0)
+		{
+			TemporaryFile << copy;
+			TemporaryFile <<"\n";
+		}
+		flag = 0;
+	}
+	if(flag_2 == 0)
+	{
+		cout << "Word not found." << endl;
+	}
+
+	TemporaryFile.close();
+	Delete.close();
+
+	if(language_flag==1)	//Eng
+	{
+		const char* File = ENGLISH_FILE_NAME;
+		remove(File);
+		rename("Temp.txt",File);
+	}
+
+	else if(language_flag==2)	//Fr
+	{
+		const char* File = FRENCH_FILE_NAME;
+		remove(File);
+		rename("Temp.txt",File);
+	}
 }

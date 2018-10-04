@@ -16,9 +16,21 @@
 
 using namespace std;
 
+FileOperation :: FileOperation(const Interface& start) : nr_sign{0},check_resul{0},mode_practice{start.mode}
+{
+	if(start.language==1)	//SETTING LANGUAGE
+	{
+		sec_lang = "English";
+		Practice(FIRST_ENG,SEC_ENG,ENGLISH_FILE_NAME);
+	}
+	else if (start.language==2)
+	{
+		sec_lang = "French";
+		Practice(FIRST_FR,SEC_FR,FRENCH_FILE_NAME);
+	}
+}
 
-
-void FileOperation :: Practice(string first,string second,string third)
+void FileOperation :: Practice(string first,string second,string FileName)
 {
 	do
 	{
@@ -26,6 +38,7 @@ void FileOperation :: Practice(string first,string second,string third)
 		cout << second << endl;	// "Press 2 to learn Pol to Eng/Fr"
 
 		cin >> decision;
+
 		if(decision != 1 && decision != 2)
 		{
 			cout << "Wrong number." << "(" ;
@@ -38,19 +51,19 @@ void FileOperation :: Practice(string first,string second,string third)
 
 	if(decision==1)
 	{
-		Translate(third);
+		Translate(FileName);
 	}
 	else if(decision==2)
 	{
-		Translate(third);
+		Translate(FileName);
 	}
 }
 
 
-void FileOperation :: Translate(string third) // zrobic funkcje z correct  wrzucic jao
+void FileOperation :: Translate(string FileName) // zrobic funkcje z correct  wrzucic jao
 {
 	ifstream StudyFile;		//file initialization
-	StudyFile.open(third);
+	StudyFile.open(FileName);
 
 	if(StudyFile.is_open())
 	{
@@ -111,10 +124,6 @@ void FileOperation :: Translate(string third) // zrobic funkcje z correct  wrzuc
 	StudyFile.close();
 }
 
-void FileOperation :: FromPolish(string third)
-{
-
-}
 
 int FileOperation :: Check(int mode)
 {
@@ -138,7 +147,6 @@ int FileOperation :: Check(int mode)
 	}
 	//CHECKING
 	cout << "Meaning in " << language <<":"<<endl;
-	//cin >> answer;
 	cin.ignore();					//CLEARS BUFFER ('\n' IN BUFFER)
 	std::getline(std::cin,answer);	//ALLOWS INPUTTING STRINGS WITH 'SPACE' SEPARATION
 
@@ -167,17 +175,5 @@ int FileOperation :: Check(int mode)
 	}
 }
 
-FileOperation :: FileOperation(const Interface& start) : nr_sign{0},check_resul{0},mode_practice{start.mode}
-{
-	if(start.language==1)	//SETTING LANGUAGE
-	{
-		sec_lang = "English";
-		Practice(FIRST_ENG,SEC_ENG,ENGLISH_FILE_NAME);
-	}
-	else if (start.language==2)
-	{
-		sec_lang = "French";
-		Practice(FIRST_FR,SEC_FR,FRENCH_FILE_NAME);
-	}
-}
+
 

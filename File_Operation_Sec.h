@@ -20,10 +20,12 @@ class FileData : public Interface
 public:
 	FileData(const Interface& start);
 private:
+	int language_flag;
 	void Display(std::string FileName);
 	int Edit_Menu(void);
 	void Edit(std::string FileName);
 	void Add(std::string FileName);
+	void Delete(std::string FileName);
 };
 
 

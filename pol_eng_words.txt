@@ -1,6 +1,5 @@
-a cow - krowa
-a cat - kot
-a snake - waz
-a dog - pies
-a bird - ptak
-a mouse - mysz
+a snake -waz
+a cow -krowa
+a dog -pies
+a pig -swinia
+a monkey -malpa

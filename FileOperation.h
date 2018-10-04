@@ -49,16 +49,12 @@ private:
 	int random;
 	int count;
 public:
-
 	//FUNTIONS
 	FileOperation(const Interface& start);
-	void Practice(string first,string second,string third);
 private:
-	void Translate(string third);
-	void FromPolish(string third);
+	void Practice(string first,string second,string FileName);
+	void Translate(string FileName);
 	int Check(int mode);
 };
-
-
 
 #endif /* FILEOPERATION_H_ */
