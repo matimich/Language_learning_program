@@ -2,7 +2,7 @@
  * File_Operation_Sec.cpp
  *
  *  Created on: 3 paü 2018
- *      Author: Mateusz
+ *      Author: Mateusz Michalski
  */
 
 #include "File_Operation_Sec.h"
@@ -45,6 +45,7 @@ void FileData:: Display(std::string FileName)
 	string display;
 	ifstream Display;
 	Display.open(FileName);
+
 	if(Display.is_open())
 	{
 		while(getline(Display,display))
@@ -95,6 +96,7 @@ void FileData :: Edit(string FileName)
 		}
 		case 3:
 		{
+			Replace(FileName);
 			break;
 		}
 	}
@@ -113,13 +115,15 @@ void FileData :: Add(string FileName)
 	Add << "\n";
 	Add << new_word;
 	Add.close();
+	cout << "Done!" <<endl;
 }
 
 void FileData :: Delete(string FileName)
 {
 	string search;
 	string copy;
-	int check;
+	int check, loops = 0;
+	int flag=0,flag_2=0;
 
 	cout << "Input the word you want to remove:" << endl;
 	cin.ignore();
@@ -129,33 +133,135 @@ void FileData :: Delete(string FileName)
 	ofstream TemporaryFile;
 	Delete.open(FileName);
 	TemporaryFile.open("Temp.txt");
-	/*
-	if(TemporaryFile.is_open())
+
+	Delete.seekg(0, ios:: beg);
+	while(getline(Delete,copy))
 	{
-		cout << "File has been created." << endl;	//TEST
+		loops++;
 	}
-	*/
-	int flag=0,flag_2=0;
+	loops -= 1;
+
+	Delete.clear();
+	Delete.seekg(0, ios:: beg);
+
+
 	while(getline(Delete,copy))
 	{
 		check=copy.find(search);
 		if(check!=-1)
 		{
 			flag = 1;
-			copy.replace(0,copy.length(),"");
-			if(flag==1)
-			{
-				TemporaryFile << copy;
-				flag_2 =1;
-			}
-			cout << "Done" << endl;
+			flag_2 =1;
+			cout << "Done!" << endl;
 		}
 		if(flag == 0)
 		{
-			TemporaryFile << copy;
-			TemporaryFile <<"\n";
+			if(loops!=0)
+			{
+				TemporaryFile << copy;
+				TemporaryFile <<"\n";	// TO MI ROBI!! , sprawdzic na replace
+			}
+			else if(loops==0)
+			{
+				TemporaryFile << copy;
+			}
 		}
 		flag = 0;
+		loops--;
+	}
+
+	if(flag_2 == 0)
+	{
+		cout << "Word not found." << endl;
+	}
+
+	TemporaryFile.close();
+	Delete.close();
+
+	if(language_flag==1)	//Eng
+	{
+		const char* File = ENGLISH_FILE_NAME;
+		remove(File);
+		rename("Temp.txt",File);
+	}
+
+	else if(language_flag==2)	//Fr
+	{
+		const char* File = FRENCH_FILE_NAME;
+		remove(File);
+		rename("Temp.txt",File);
+	}
+}
+
+void FileData :: Replace(string FileName)
+{
+	string search_replace;
+	string copy;
+	int check;
+	int flag=0,flag_2=0,loops =0;
+
+	cout << "Input the word you want to replace:" << endl;
+	cin.ignore();
+	std::getline(cin,search_replace);
+
+	cout << "WPisales:" << search_replace<<endl;
+	//FILES CONF
+	fstream Delete;
+	ofstream TemporaryFile;
+	Delete.open(FileName);
+	TemporaryFile.open("Temp.txt");
+
+	Delete.seekg(0, ios:: beg);
+	while(getline(Delete,copy))
+	{
+		loops++;
+	}
+	loops -= 1;
+
+	Delete.clear();
+	Delete.seekg(0, ios:: beg);
+
+	while(getline(Delete,copy))
+	{
+		check=copy.find(search_replace);
+		if(check!=-1)	//WORD FOUND
+		{
+			flag = 1;
+			cout << "Input the word you want to add." << endl;
+			cout << "Remember about 'foreign - polish' format." << endl;
+			std::getline(cin,search_replace);
+
+			copy.replace(0,copy.length(),search_replace);
+			if(loops !=0)
+			{
+				TemporaryFile << copy;
+				TemporaryFile << "\n";
+				flag_2 = 1;
+				cout << "Done!" << endl;
+			}
+			else if(loops==0)
+			{
+				TemporaryFile << copy;
+				flag_2 = 1;
+				cout << "Done!" << endl;
+			}
+		}
+		if(flag == 0)
+		{
+			if(loops !=0)
+			{
+				TemporaryFile << copy;
+				TemporaryFile << "\n";
+				flag_2 = 1;
+			}
+			else
+			{
+				TemporaryFile << copy;
+				flag_2 = 1;
+			}
+		}
+		flag = 0;
+		loops--;
 	}
 	if(flag_2 == 0)
 	{
@@ -179,3 +285,5 @@ void FileData :: Delete(string FileName)
 		rename("Temp.txt",File);
 	}
 }
+
+

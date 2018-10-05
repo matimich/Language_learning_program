@@ -2,7 +2,7 @@
  * FileOperation.cpp
  *
  *  Created on: 29 wrz 2018
- *      Author: Mateusz
+ *      Author: Mateusz Michalski
  */
 
 
@@ -16,7 +16,7 @@
 
 using namespace std;
 
-FileOperation :: FileOperation(const Interface& start) : nr_sign{0},check_resul{0},mode_practice{start.mode}
+FileOperation :: FileOperation(const Interface& start): mode_practice{start.mode}
 {
 	if(start.language==1)	//SETTING LANGUAGE
 	{
@@ -49,19 +49,21 @@ void FileOperation :: Practice(string first,string second,string FileName)
 	}
 	while(decision != 1 && decision != 2);
 
-	if(decision==1)
+	if(decision==1)	//USER WILL BE TRANSLATING FROM OTHER LANGUAGE TO POLISH
 	{
 		Translate(FileName);
 	}
 	else if(decision==2)
 	{
-		Translate(FileName);
+		Translate(FileName);	//USER WILL BE TRANSLATING FROM POLISH TO OTHER LANGUAGE
 	}
 }
 
 
-void FileOperation :: Translate(string FileName) // zrobic funkcje z correct  wrzucic jao
+void FileOperation :: Translate(string FileName)
 {
+	int count;
+	int random;
 	ifstream StudyFile;		//file initialization
 	StudyFile.open(FileName);
 
@@ -97,11 +99,11 @@ void FileOperation :: Translate(string FileName) // zrobic funkcje z correct  wr
 					StudyFile.clear();				//CLEARING EOF FLAG IS A MUST!
 					StudyFile.seekg(0,ios::beg);	//to the beginning of the file
 				}
-				srand (time(NULL));
+
+				srand (time(NULL));					//CREATING RANDOM NUMBER
 				random = rand() % count + 1;
 
-
-				for(int i=0; i<random;i++)
+				for(int i=0; i<random;i++)			//TAKING RANDOM A WORD FROM THE TEXT FILE
 				{
 					getline(StudyFile,full_sentence);
 				}
@@ -129,28 +131,30 @@ int FileOperation :: Check(int mode)
 {
 	string continue_learn = "A";
 	string language;
+	int check_resul = 0;
+	int nr_sign = 0;
 
 	nr_sign = full_sentence.find(sign);	//SEARCHING FOR NON PL PART OF LINE
 
 	BACK:
 	if(mode==1)	//FOR 'TO POLISH' MODE
 	{
-		string display(full_sentence, 0, nr_sign);//COPYING EXACT NUMBER OF SIGNS
+		string display(full_sentence, 0, nr_sign);//COPYING OTHER LANGUAGE PART OF STRING
 		cout<< display << endl;
 		language = "Polish";
 	}
 	else if(mode ==2)//FOR 'FROM POLISH' MODE
 	{
-		string display(full_sentence, nr_sign+2, '\n');//COPYING EXACT NUMBER OF SIGNS
+		string display(full_sentence, nr_sign+2, '\n');//COPYING PL PART OF STRING
 		cout<< display << endl;
 		language = sec_lang;
 	}
 	//CHECKING
 	cout << "Meaning in " << language <<":"<<endl;
-	cin.ignore();					//CLEARS BUFFER ('\n' IN BUFFER)
-	std::getline(std::cin,answer);	//ALLOWS INPUTTING STRINGS WITH 'SPACE' SEPARATION
+	cin.ignore();					//CLEARS BUFFER,'\n' IS IN BUFFER AFTER INPUTTING MENU'S NUMBERS
+	std:: getline(std::cin,answer);	//ALLOWS INPUTTING STRINGS WITH 'SPACE' SEPARATION
 
-	int check_resul = full_sentence.find(answer);
+	check_resul = full_sentence.find(answer);	//CHECKING ANSWER
 	if(check_resul  >= 0)
 	{
 		cout << "Correct answer!" <<endl;

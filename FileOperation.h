@@ -2,7 +2,7 @@
  * FileOperation.h
  *
  *  Created on: 29 wrz 2018
- *      Author: Mateusz
+ *      Author: Mateusz Michalski
  */
 
 #ifndef FILEOPERATION_H_
@@ -15,7 +15,7 @@
 using namespace std;
 
 
-// MACROS FOR ENGLISH
+// MACROS FOR ENGLISH SETTINGS
 #define ENGLISH_FILE_NAME "pol_eng_words.txt"
 
 #define FIRST_ENG "Press 1 to practice Eng to Pol."
@@ -25,7 +25,7 @@ using namespace std;
 
 
 
-// MACROS FOR FRENCH
+// MACROS FOR FRENCH SETTINGS
 #define FRENCH_FILE_NAME "pol_fr_words.txt"
 
 #define FIRST_FR "Press 1 to practice Fr to Pol."
@@ -43,11 +43,7 @@ private:
 	string display;
 	string answer;
 	string sec_lang;
-	int nr_sign; // number_of_signs_to_copy
-	int check_resul; //checking your answer
 	int mode_practice;
-	int random;
-	int count;
 public:
 	//FUNTIONS
 	FileOperation(const Interface& start);

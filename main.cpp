@@ -2,17 +2,12 @@
  * main.cpp
  *
  *  Created on: 27 wrz 2018
- *      Author: Mateusz
+ *      Author: Mateusz Michalski
  */
-
-#include <iostream>
 #include "interface.h"
 #include "FileOperation.h"
 #include "File_Operation_Sec.h"
-#include <string>
-#include <cstring>
 
-using namespace std;
 
 
 int main(void)

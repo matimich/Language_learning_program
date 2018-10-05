@@ -2,7 +2,7 @@
  * File_Operation_Sec.h
  *
  *  Created on: 3 paü 2018
- *      Author: Mateusz
+ *      Author: Mateusz Michalski
  */
 
 #ifndef FILE_OPERATION_SEC_H_
@@ -10,10 +10,6 @@
 
 #include "interface.h"
 #include <iostream>
-
-
-
-
 
 class FileData : public Interface
 {
@@ -26,8 +22,7 @@ private:
 	void Edit(std::string FileName);
 	void Add(std::string FileName);
 	void Delete(std::string FileName);
+	void Replace(std::string FileName);
 };
-
-
 
 #endif /* FILE_OPERATION_SEC_H_ */

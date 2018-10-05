@@ -2,7 +2,7 @@
  * interface.cpp
  *
  *  Created on: 27 wrz 2018
- *      Author: Mateusz
+ *      Author: Mateusz Michalski
  */
 
 #ifndef INTERFACE_CPP_
@@ -58,9 +58,9 @@ void Interface :: menu(void)
 	if(decision==1) // configurate practice mode
 	do
 	{
-		cout <<"Choose '1' to play 'normal mode'  - program displays all data from the file." << endl;
-		cout <<"one after another" << endl;
-		cout <<"Choose '2' to play 'random mode' - program displays random data from the file" << endl;
+		cout <<"Choose '1' to play 'normal mode'  - program displays all data from the file" << endl;
+		cout <<"one after another." << endl;
+		cout <<"Choose '2' to play 'random mode' - program displays random data from the file." << endl;
 
 		cin >> mode;
 

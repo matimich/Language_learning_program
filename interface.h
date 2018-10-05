@@ -2,18 +2,15 @@
  * interface.h
  *
  *  Created on: 27 wrz 2018
- *      Author: Mateusz
+ *      Author: Mateusz Michalski
  */
 
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
 
 
-
-
 class Interface
 {
-
 public:
 	//var
 	int decision;	//for setting one of 4 menu operation
@@ -23,7 +20,5 @@ public:
 	Interface();
 	void menu(void);	//menu interface
 };
-
-
 
 #endif /* INTERFACE_H_ */

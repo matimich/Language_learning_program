@@ -1,5 +1,1 @@
-a snake -waz
-a cow -krowa
-a dog -pies
-a pig -swinia
-a monkey -malpa
+test
