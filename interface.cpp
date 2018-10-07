@@ -8,24 +8,63 @@
 #ifndef INTERFACE_CPP_
 #define INTERFACE_CPP_
 
+#include "interface.hpp"
+
 #include <iostream>
-#include "interface.h"
 
 using namespace std;
 
-Interface :: Interface() : decision{0},language{10},mode{0}
-{}
+Interface :: Interface() : decision_menu{0},language{10},mode{0},lang_number{2},decision{0}
+{
+	//interface display:
+	language_array[ENG_NUMBER] = ENG;
+	first[ENG_NUMBER] = FIRST_ENG;
+	second[ENG_NUMBER] = SEC_ENG;
+
+	language_array[FR_NUMBER]= FR;
+	first[FR_NUMBER] = FIRST_FR;
+	second[FR_NUMBER] = SEC_FR;
+}
 
 
 void Interface :: menu(void)
 {
 	do
 	{
-		cout <<"Choose '1' to learn Eng." << endl;
-		cout <<"Choose '2' to learn Fr." << endl;
+		cout <<"__MENU__" << endl;
+		cout << PRACTICE <<")Practice" << endl;
+		cout << REVISION <<")Revision" << endl;
+		cout << FIlE_CONF <<")Add/delete/rep words" << endl;
+		cout << EXIT <<")Exit" << endl;
+
+		cin >> decision_menu;
+		if(decision_menu != PRACTICE && decision_menu != REVISION && decision_menu != FIlE_CONF
+				&& decision_menu != EXIT)
+		{
+			cout << "Wrong number." << "(" ;
+			cout << decision_menu << ")"<<endl;
+			cin.clear();	//clears flag
+			cin.ignore();	// clears sign from buffer
+		}
+
+		if(decision_menu == EXIT)	//EXIT
+		{
+			return;
+		}
+
+	}while(decision_menu != PRACTICE && decision_menu != REVISION && decision_menu != FIlE_CONF
+			&& decision_menu != EXIT);
+
+	do	//DISPLAY AVAILABLE LANGUAGES
+	{
+
+		for(int i =0 ; i < lang_number; i++)
+		{
+			cout <<"Choose '" << i << "' to learn " <<  language_array[i] << "." << endl;
+		}
 
 		cin >> language;
-		if(language != 1 && language != 2)
+		if(language != ENG_NUMBER && language != FR_NUMBER)
 		{
 			cout << "Wrong number." << "(" ;
 			cout << language << ")"<<endl;
@@ -33,46 +72,45 @@ void Interface :: menu(void)
 			cin.ignore();	// clears sign from buffer
 		}
 	}
-	while(language != 1 && language != 2);
+	while(language != ENG_NUMBER && language != FR_NUMBER);
 
-	do
+
+	if(decision_menu == PRACTICE) // configurate practice mode
 	{
-		cout <<"__MENU__" << endl;
-		cout <<"1)Practice" << endl;
-		cout <<"2)Revision" << endl;
-		cout <<"3)Add/delete words" << endl;
-		cout <<"4)Exit" << endl;
-
-		cin >> decision;
-		if(decision != 1 && decision != 2 && decision != 3 && decision != 4)
+		do
 		{
-			cout << "Wrong number." << "(" ;
-			cout << decision << ")"<<endl;
-			cin.clear();	//clears flag
-			cin.ignore();	// clears sign from buffer
+			cout <<"Choose '" << NORMAL_MODE << "' to play 'normal mode'  - program displays all data from the file" << endl;
+			cout <<"one after another." << endl;
+			cout <<"Choose '" << RANDOM_MODE << "' to play 'random mode' - program displays random data from the file." << endl;
+
+			cin >> mode;
+
+			if(mode != NORMAL_MODE && mode != RANDOM_MODE)
+			{
+				cout << "Wrong number." << "(" ;
+				cout << mode << ")"<<endl;
+				cin.clear();	//clears flag
+				cin.ignore();	// clears sign from buffer
+			}
 		}
-	}
-	while(decision != 1 && decision != 2 && decision != 3 && decision != 4);
+		while(mode != NORMAL_MODE && mode != RANDOM_MODE);
 
-
-	if(decision==1) // configurate practice mode
-	do
-	{
-		cout <<"Choose '1' to play 'normal mode'  - program displays all data from the file" << endl;
-		cout <<"one after another." << endl;
-		cout <<"Choose '2' to play 'random mode' - program displays random data from the file." << endl;
-
-		cin >> mode;
-
-		if(mode != 1 && mode != 2)
+		do
 		{
-			cout << "Wrong number." << "(" ;
-			cout << mode << ")"<<endl;
-			cin.clear();	//clears flag
-			cin.ignore();	// clears sign from buffer
+			cout << first[language] << endl;	// "Press 1 to translate an other language to Pol"
+			cout << second[language] << endl;	// "Press 2 to translate Pol to an other language"
+			cin >> decision;
+
+			if(decision != TO_POLISH && decision != FROM_POLISH)
+			{
+				cout << "Wrong number." << "(" ;
+				cout << decision << ")"<<endl;
+				cin.clear();	//clears flag
+				cin.ignore();	// clears sign from buffer
+			}
 		}
+		while(decision != TO_POLISH && decision != FROM_POLISH);
 	}
-	while(mode != 1 && mode != 2);
 }
 
 #endif /* INTERFACE_CPP_ */

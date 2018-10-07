@@ -6,8 +6,9 @@
  */
 
 
+#include "FileOperation.hpp"
+
 #include <iostream>
-#include "FileOperation.h"
 #include <fstream>
 #include <string>
 #include <cstdlib>
@@ -16,44 +17,29 @@
 
 using namespace std;
 
-FileOperation :: FileOperation(const Interface& start): mode_practice{start.mode}
+FileOperation :: FileOperation(const Interface& start): sign{"-"}, mode_practice{start.mode},
+		mode_decision{start.decision}
 {
-	if(start.language==1)	//SETTING LANGUAGE
+	if(start.language==ENG_NUMBER)	//SETTING LANGUAGE
 	{
-		sec_lang = "English";
-		Practice(FIRST_ENG,SEC_ENG,ENGLISH_FILE_NAME);
+		sec_lang = ENG;
+		Practice(ENGLISH_FILE_NAME);
 	}
-	else if (start.language==2)
+
+	else if (start.language == FR_NUMBER)
 	{
-		sec_lang = "French";
-		Practice(FIRST_FR,SEC_FR,FRENCH_FILE_NAME);
+		sec_lang = FR;
+		Practice(FRENCH_FILE_NAME);
 	}
 }
 
-void FileOperation :: Practice(string first,string second,string FileName)
+void FileOperation :: Practice(string FileName)
 {
-	do
-	{
-		cout << first << endl;	// "Press 1 to learn Eng/Fr to Pol"
-		cout << second << endl;	// "Press 2 to learn Pol to Eng/Fr"
-
-		cin >> decision;
-
-		if(decision != 1 && decision != 2)
-		{
-			cout << "Wrong number." << "(" ;
-			cout << decision << ")"<<endl;
-			cin.clear();	//clears flag
-			cin.ignore();	// clears sign from buffer
-		}
-	}
-	while(decision != 1 && decision != 2);
-
-	if(decision==1)	//USER WILL BE TRANSLATING FROM OTHER LANGUAGE TO POLISH
+	if(mode_decision == TO_POLISH)	//USER WILL BE TRANSLATING FROM OTHER LANGUAGE TO POLISH
 	{
 		Translate(FileName);
 	}
-	else if(decision==2)
+	else if(mode_decision == FROM_POLISH)
 	{
 		Translate(FileName);	//USER WILL BE TRANSLATING FROM POLISH TO OTHER LANGUAGE
 	}
@@ -62,18 +48,18 @@ void FileOperation :: Practice(string first,string second,string FileName)
 
 void FileOperation :: Translate(string FileName)
 {
-	int count;
-	int random;
+	int count;	//var for random mode
+	int random;	//var for random mode
 	ifstream StudyFile;		//file initialization
 	StudyFile.open(FileName);
 
 	if(StudyFile.is_open())
 	{
-		if(mode_practice==1)	//NORMAL MODE
+		if(mode_practice == NORMAL_MODE)	//NORMAL MODE
 		{
 			while(getline(StudyFile,full_sentence))	//EXTRACTING WORLD FROM FILE
 			{
-				if(Check(decision)==1)
+				if(Check(mode_decision) == "continue")
 				{
 					continue;
 				}
@@ -83,7 +69,7 @@ void FileOperation :: Translate(string FileName)
 				}
 			}
 		}
-		else if(mode_practice==2)	//RANDOM MODE
+		else if(mode_practice == RANDOM_MODE)	//RANDOM MODE
 		{
 			count = 0;
 
@@ -100,7 +86,7 @@ void FileOperation :: Translate(string FileName)
 					StudyFile.seekg(0,ios::beg);	//to the beginning of the file
 				}
 
-				srand (time(NULL));					//CREATING RANDOM NUMBER
+				srand(time(NULL));					//CREATING RANDOM NUMBER
 				random = rand() % count + 1;
 
 				for(int i=0; i<random;i++)			//TAKING RANDOM A WORD FROM THE TEXT FILE
@@ -108,7 +94,7 @@ void FileOperation :: Translate(string FileName)
 					getline(StudyFile,full_sentence);
 				}
 
-				if(Check(decision)==1)
+				if(Check(mode_decision) == "continue")
 				{
 					continue;
 				}
@@ -127,7 +113,7 @@ void FileOperation :: Translate(string FileName)
 }
 
 
-int FileOperation :: Check(int mode)
+string FileOperation :: Check(int mode)
 {
 	string continue_learn = "A";
 	string language;
@@ -137,13 +123,13 @@ int FileOperation :: Check(int mode)
 	nr_sign = full_sentence.find(sign);	//SEARCHING FOR NON PL PART OF LINE
 
 	BACK:
-	if(mode==1)	//FOR 'TO POLISH' MODE
+	if(mode == TO_POLISH)	//FOR 'TO POLISH' MODE
 	{
-		string display(full_sentence, 0, nr_sign);//COPYING OTHER LANGUAGE PART OF STRING
+		string display(full_sentence, 0, nr_sign); //COPYING OTHER LANGUAGE PART OF STRING
 		cout<< display << endl;
 		language = "Polish";
 	}
-	else if(mode ==2)//FOR 'FROM POLISH' MODE
+	else if(mode == FROM_POLISH)//FOR 'FROM POLISH' MODE
 	{
 		string display(full_sentence, nr_sign+2, '\n');//COPYING PL PART OF STRING
 		cout<< display << endl;
@@ -171,11 +157,11 @@ int FileOperation :: Check(int mode)
 	cin >> continue_learn;
 	if(continue_learn == "C" || continue_learn == "c")
 	{
-		return 1;
+		return "continue";
 	}
 	else
 	{
-		return 2;
+		return "quit";
 	}
 }
 

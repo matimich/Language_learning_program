@@ -4,9 +4,9 @@
  *  Created on: 27 wrz 2018
  *      Author: Mateusz Michalski
  */
-#include "interface.h"
-#include "FileOperation.h"
-#include "File_Operation_Sec.h"
+#include "File_Operation_Sec.hpp"
+#include "FileOperation.hpp"
+#include "interface.hpp"
 
 
 
@@ -14,31 +14,30 @@ int main(void)
 {
 	Interface start;
 
-	while(start.decision != 4)
+	while(start.decision_menu != EXIT)
 	{
 		start.menu();
-		switch(start.decision)
+		switch(start.decision_menu)
 		{
-		case 1:		//practice mode
+		case PRACTICE:		//practice mode
 		{
 			FileOperation *File = new FileOperation(start);
 			delete File;
 			break;
 		}
-
-		case 2:	//revision mode - display data
+		case REVISION:	//revision mode - display data
 		{
 			FileData *Revision = new FileData(start);
 			delete Revision;
 			break;
 		}
-		case 3:	//edit text file
+		case FIlE_CONF:	//edit text file
 		{
 			FileData *AddDelRep = new FileData(start);
 			delete AddDelRep;
-		}
 			break;
-		case 4:	//exit
+		}
+		case EXIT:	//exit
 			break;
 		}
 	}

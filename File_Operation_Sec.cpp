@@ -5,35 +5,37 @@
  *      Author: Mateusz Michalski
  */
 
-#include "File_Operation_Sec.h"
-#include "FileOperation.h"
+#include "File_Operation_Sec.hpp"
+
 #include <iostream>
 #include <fstream>
 #include <cstdio>
+
+#include "FileOperation.hpp"
 using namespace std;
 
 
-FileData::FileData(const Interface& start) : language_flag{start.language}
+FileData::FileData(const Interface& start): language_flag{start.language}
 {
-	if(start.language==1)	//ENG
+	if(start.language == ENG_NUMBER)	//ENG
 	{
-		if(start.decision == 2)
+		if(start.decision_menu == REVISION)
 		{
 			Display(ENGLISH_FILE_NAME);
 		}
-		else if(start.decision == 3)
+		else if(start.decision_menu == FIlE_CONF)
 		{
 			Edit(ENGLISH_FILE_NAME);
 
 		}
 	}
-	else if (start.language==2)	//FR
+	else if (start.language == FR_NUMBER)	//FR
 	{
-		if(start.decision == 2)
+		if(start.decision_menu == REVISION)
 		{
 			Display(FRENCH_FILE_NAME);
 		}
-		else if(start.decision == 3)
+		else if(start.decision_menu == FIlE_CONF)
 		{
 			Edit(ENGLISH_FILE_NAME);
 		}
@@ -67,17 +69,17 @@ int FileData :: Edit_Menu()
 			cout <<"1)Add new word." << endl;
 			cout <<"2)Delete existing word." << endl;
 			cout <<"3)Replace word." << endl;
-			cin >> decision;
-			if(decision != 1 && decision != 2 && decision != 3)
+			cin >> decision_menu;
+			if(decision_menu != 1 && decision_menu != 2 && decision_menu != 3)
 			{
 				cout << "Wrong number." << "(" ;
-				cout << decision << ")"<<endl;
+				cout << decision_menu << ")"<<endl;
 				cin.clear();	//clears flag
 				cin.ignore();	// clears sign from buffer
 			}
 		}
-		while(decision != 1 && decision != 2 && decision != 3);
-	return decision;
+		while(decision_menu != 1 && decision_menu != 2 && decision_menu != 3);
+	return decision_menu;
 }
 
 void FileData :: Edit(string FileName)
@@ -271,14 +273,14 @@ void FileData :: Replace(string FileName)
 	TemporaryFile.close();
 	Delete.close();
 
-	if(language_flag==1)	//Eng
+	if(language_flag == ENG_NUMBER)	//Eng
 	{
 		const char* File = ENGLISH_FILE_NAME;
 		remove(File);
 		rename("Temp.txt",File);
 	}
 
-	else if(language_flag==2)	//Fr
+	else if(language_flag == FR_NUMBER)	//Fr
 	{
 		const char* File = FRENCH_FILE_NAME;
 		remove(File);
