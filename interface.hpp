@@ -51,7 +51,6 @@ using namespace std;
 
 class Interface
 {
-
 private:
 	string language_array[2] ;
 	string first[2];

@@ -5,7 +5,6 @@
  *      Author: Mateusz Michalski
  */
 
-
 #include "FileOperation.hpp"
 
 #include <iostream>
