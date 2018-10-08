@@ -14,9 +14,9 @@ using namespace std;
 
 
 // MACROS FOR ENGLISH FILE SETTINGS
-#define ENGLISH_FILE_NAME "pol_eng_words.txt"
+#define ENGLISH_FILE_NAME "eng_words.txt"
 // MACROS FOR FRENCH FILE SETTINGS
-#define FRENCH_FILE_NAME "pol_fr_words.txt"
+#define FRENCH_FILE_NAME "fr_words.txt"
 
 
 
