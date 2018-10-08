@@ -26,6 +26,9 @@
 //DEFAULT LANGUAGE
 #define DEFAULT_LANGUAGE Polish
 
+#define Native(a) bridge_5(a)
+#define bridge_5(a) #a
+
 // MACROS FOR ENGLISH SETTINGS
 #define ENG_NUMBER 0
 #define ENG	"English"
@@ -45,6 +48,12 @@
 
 #define SEC_FR(a) bridge_4(a)
 #define bridge_4(a) #a
+
+
+// MACROS FOR ENGLISH FILE SETTINGS
+#define ENGLISH_FILE_NAME "eng_words.txt"
+// MACROS FOR FRENCH FILE SETTINGS
+#define FRENCH_FILE_NAME "fr_words.txt"
 
 
 using namespace std;

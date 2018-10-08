@@ -13,11 +13,6 @@
 using namespace std;
 
 
-// MACROS FOR ENGLISH FILE SETTINGS
-#define ENGLISH_FILE_NAME "eng_words.txt"
-// MACROS FOR FRENCH FILE SETTINGS
-#define FRENCH_FILE_NAME "fr_words.txt"
-
 
 
 class FileOperation : public Interface

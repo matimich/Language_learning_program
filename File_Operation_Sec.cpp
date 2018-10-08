@@ -36,7 +36,7 @@ FileData::FileData(const Interface& start): language_flag{start.language}
 		}
 		else if(start.decision_menu == FIlE_CONF)
 		{
-			Edit(ENGLISH_FILE_NAME);
+			Edit(FRENCH_FILE_NAME);
 		}
 	}
 }
@@ -107,7 +107,7 @@ void FileData :: Add(string FileName)
 {
 	string new_word;
 	cout << "Add new word, remember about:" <<endl;
-	cout << "'foreign_word - polish_word'" << endl;
+	cout << "'foreign_word -"<< Native(DEFAULT_LANGUAGE)<<"'" << endl;
 	cout << "construction:" <<endl;
 	cin.ignore();
 	std::getline(cin,new_word);
@@ -124,7 +124,8 @@ void FileData :: Delete(string FileName)
 	string search;
 	string copy;
 	int check, loops = 0;
-	int flag=0,flag_2=0;
+	int flag=0,flag_2=0,flag_frst_word=0;
+	int loops_max;
 
 	cout << "Input the word you want to remove:" << endl;
 	cin.ignore();
@@ -140,7 +141,7 @@ void FileData :: Delete(string FileName)
 	{
 		loops++;
 	}
-	loops -= 1;
+	loops_max =loops -= 1;
 
 	Delete.clear();
 	Delete.seekg(0, ios:: beg);
@@ -154,16 +155,25 @@ void FileData :: Delete(string FileName)
 			flag = 1;
 			flag_2 =1;
 			cout << "Done!" << endl;
+			if(loops == loops_max)	//if first word was delated
+			{
+				flag_frst_word = 1;
+			}
 		}
 		if(flag == 0)
 		{
-			if(loops!=0)
+			if(loops == loops_max)	//exception for first word
 			{
 				TemporaryFile << copy;
-				TemporaryFile <<"\n";	// TO MI ROBI!! , sprawdzic na replace
 			}
-			else if(loops==0)
+
+			if(loops!=loops_max)		//other cases
 			{
+				if(flag_frst_word!=1)
+				{
+					TemporaryFile <<"\n";
+				}
+				flag_frst_word =0;
 				TemporaryFile << copy;
 			}
 		}
@@ -179,14 +189,14 @@ void FileData :: Delete(string FileName)
 	TemporaryFile.close();
 	Delete.close();
 
-	if(language_flag==1)	//Eng
+	if(language_flag == ENG_NUMBER)	//Eng
 	{
 		const char* File = ENGLISH_FILE_NAME;
 		remove(File);
 		rename("Temp.txt",File);
 	}
 
-	else if(language_flag==2)	//Fr
+	else if(language_flag == FR_NUMBER)	//Fr
 	{
 		const char* File = FRENCH_FILE_NAME;
 		remove(File);
@@ -205,7 +215,6 @@ void FileData :: Replace(string FileName)
 	cin.ignore();
 	std::getline(cin,search_replace);
 
-	cout << "WPisales:" << search_replace<<endl;
 	//FILES CONF
 	fstream Delete;
 	ofstream TemporaryFile;
@@ -229,7 +238,7 @@ void FileData :: Replace(string FileName)
 		{
 			flag = 1;
 			cout << "Input the word you want to add." << endl;
-			cout << "Remember about 'foreign - polish' format." << endl;
+			cout << "Remember about 'foreign -"<< Native(DEFAULT_LANGUAGE) <<"' format." << endl;
 			std::getline(cin,search_replace);
 
 			copy.replace(0,copy.length(),search_replace);
