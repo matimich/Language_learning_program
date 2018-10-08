@@ -18,12 +18,12 @@ Interface :: Interface() : decision_menu{0},language{10},mode{0},lang_number{2},
 {
 	//interface display:
 	language_array[ENG_NUMBER] = ENG;
-	first[ENG_NUMBER] = FIRST_ENG;
-	second[ENG_NUMBER] = SEC_ENG;
+	first[ENG_NUMBER] = FIRST_ENG(Press TRANS_TO_DEFAULT to practice English to  DEFAULT_LANGUAGE.);
+	second[ENG_NUMBER] = SEC_ENG(Press TRANS_FROM_DEFAULT to practice  DEFAULT_LANGUAGE  to English.);
 
 	language_array[FR_NUMBER]= FR;
-	first[FR_NUMBER] = FIRST_FR;
-	second[FR_NUMBER] = SEC_FR;
+	first[FR_NUMBER] = FIRST_FR(Press TRANS_TO_DEFAULT to practice French to DEFAULT_LANGUAGE.);
+	second[FR_NUMBER] = SEC_FR(Press TRANS_FROM_DEFAULT to practice  DEFAULT_LANGUAGE  to French.);
 }
 
 
@@ -101,7 +101,7 @@ void Interface :: menu(void)
 			cout << second[language] << endl;	// "Press 2 to translate Pol to an other language"
 			cin >> decision;
 
-			if(decision != TO_POLISH && decision != FROM_POLISH)
+			if(decision != TRANS_TO_DEFAULT && decision != TRANS_FROM_DEFAULT)
 			{
 				cout << "Wrong number." << "(" ;
 				cout << decision << ")"<<endl;
@@ -109,7 +109,7 @@ void Interface :: menu(void)
 				cin.ignore();	// clears sign from buffer
 			}
 		}
-		while(decision != TO_POLISH && decision != FROM_POLISH);
+		while(decision != TRANS_TO_DEFAULT && decision != TRANS_FROM_DEFAULT);
 	}
 }
 

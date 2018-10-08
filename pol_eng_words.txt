@@ -1,5 +1,5 @@
-a dog -pies
-a pig -swinia
+a dog - pies
+a pig - swinia
 a leg - noga
 a pear - gruszka
 a night - noc

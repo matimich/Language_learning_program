@@ -35,11 +35,11 @@ FileOperation :: FileOperation(const Interface& start): sign{"-"}, mode_practice
 
 void FileOperation :: Practice(string FileName)
 {
-	if(mode_decision == TO_POLISH)	//USER WILL BE TRANSLATING FROM OTHER LANGUAGE TO POLISH
+	if(mode_decision == TRANS_TO_DEFAULT)	//USER WILL BE TRANSLATING FROM OTHER LANGUAGE TO POLISH
 	{
 		Translate(FileName);
 	}
-	else if(mode_decision == FROM_POLISH)
+	else if(mode_decision == TRANS_FROM_DEFAULT)
 	{
 		Translate(FileName);	//USER WILL BE TRANSLATING FROM POLISH TO OTHER LANGUAGE
 	}
@@ -123,13 +123,13 @@ string FileOperation :: Check(int mode)
 	nr_sign = full_sentence.find(sign);	//SEARCHING FOR NON PL PART OF LINE
 
 	BACK:
-	if(mode == TO_POLISH)	//FOR 'TO POLISH' MODE
+	if(mode == TRANS_TO_DEFAULT)	//FOR 'TO POLISH' MODE
 	{
 		string display(full_sentence, 0, nr_sign); //COPYING OTHER LANGUAGE PART OF STRING
 		cout<< display << endl;
 		language = "Polish";
 	}
-	else if(mode == FROM_POLISH)//FOR 'FROM POLISH' MODE
+	else if(mode == TRANS_FROM_DEFAULT)//FOR ' FROM_DEFAULT' MODE
 	{
 		string display(full_sentence, nr_sign+2, '\n');//COPYING PL PART OF STRING
 		cout<< display << endl;

@@ -18,26 +18,33 @@
 #define EXIT 4
 
 //MACROS FOR PRACTICE MODE
-
 #define NORMAL_MODE 1
 #define RANDOM_MODE 2
+#define TRANS_TO_DEFAULT 1
+#define TRANS_FROM_DEFAULT 2
 
-#define TO_POLISH 1
-#define FROM_POLISH 2
-
-
+//DEFAULT LANGUAGE
+#define DEFAULT_LANGUAGE Polish
 
 // MACROS FOR ENGLISH SETTINGS
-#define FIRST_ENG "Press 1 to practice Eng to Pol."
-#define SEC_ENG "Press 2 to practice Pol to Eng."
-#define ENG	"English"
 #define ENG_NUMBER 0
-// MACROS FOR FRENCH SETTINGS
-#define FIRST_FR "Press 1 to practice Fr to Pol."
-#define SEC_FR "Press 2 to practice Pol to Fr."
-#define FR "French"
-#define FR_NUMBER 1
+#define ENG	"English"
 
+#define FIRST_ENG(a) bridge(a)
+#define bridge(a)	#a
+
+#define SEC_ENG(a) bridge_3(a)
+#define bridge_3(a) #a
+
+// MACROS FOR FRENCH SETTINGS
+#define FR_NUMBER 1
+#define FR "French"
+
+#define FIRST_FR(a) bridge_2(a)
+#define bridge_2(a) #a
+
+#define SEC_FR(a) bridge_4(a)
+#define bridge_4(a) #a
 
 
 using namespace std;

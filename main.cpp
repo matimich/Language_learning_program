@@ -9,7 +9,6 @@
 #include "interface.hpp"
 
 
-
 int main(void)
 {
 	Interface start;
