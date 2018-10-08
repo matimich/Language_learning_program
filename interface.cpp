@@ -9,9 +9,7 @@
 #define INTERFACE_CPP_
 
 #include "interface.hpp"
-
 #include <iostream>
-
 using namespace std;
 
 Interface :: Interface() : decision_menu{0},language{10},mode{0},lang_number{2},decision{0}

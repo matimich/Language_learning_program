@@ -9,9 +9,7 @@
 #define FILEOPERATION_HPP_
 
 #include <string>
-
 #include "interface.hpp"
-
 using namespace std;
 
 

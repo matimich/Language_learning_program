@@ -7,3 +7,4 @@ an arm - reka
 a frog - zaba
 a mouse - mysz
 a bull - byk
+a snake - waz
